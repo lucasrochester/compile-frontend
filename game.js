@@ -1,4 +1,4 @@
-const ws = new WebSocket('https://compile-backend-2.onrender.com/'); 
+const ws = new WebSocket('https://compile-backend-2.onrender.com');
 ws.onopen = () => ws.send(JSON.stringify({ type: 'join', room: 'room1' }));
 
 ws.onmessage = (event) => {
@@ -14,20 +14,21 @@ ws.onmessage = (event) => {
     }
 };
 
+const deck = [
+    { name: 'INFECT', type: 'Virus', effect: 'Opponent discards a card from hand.' },
+    { name: 'FIREWALL', type: 'Program', effect: 'Block the next attack.' },
+    { name: 'DDoS', type: 'Virus', effect: 'Opponent skips next turn.' },
+    { name: 'ENCRYPT', type: 'Program', effect: 'Draw 2 extra cards.' },
+    { name: 'FORMAT C:', type: 'Command', effect: 'Clear opponent\'s field.' },
+];
+
 const yourState = {
     hand: [],
-    deck: ['Card A', 'Card B', 'Card C', 'Card D', 'Card E'],
+    deck: [...deck],
     trash: [],
     protocols: [{ compiled: false }, { compiled: false }, { compiled: false }],
     lines: [[], [], []],
     control: false,
-};
-
-const opponentState = {
-    protocols: [{ compiled: false }, { compiled: false }, { compiled: false }],
-    lines: [[], [], []],
-    trash: [],
-    deck: [],
 };
 
 let isYourTurn = true;
@@ -46,7 +47,7 @@ function renderHand() {
     yourState.hand.forEach((card, index) => {
         const cardEl = document.createElement('div');
         cardEl.classList.add('card');
-        cardEl.textContent = card;
+        cardEl.innerHTML = `<strong>${card.name}</strong><br>(${card.type})<br><small>${card.effect}</small>`;
         cardEl.addEventListener('click', () => selectCard(index));
         handContainer.appendChild(cardEl);
     });
@@ -69,7 +70,12 @@ function renderLines() {
     yourState.lines.forEach(line => {
         const lineEl = document.createElement('div');
         lineEl.classList.add('card');
-        lineEl.textContent = line.length ? line[line.length - 1] : 'Empty';
+        if (line.length > 0) {
+            const lastCard = line[line.length - 1];
+            lineEl.innerHTML = `<strong>${lastCard.name}</strong><br>(${lastCard.type})<br><small>${lastCard.effect}</small>`;
+        } else {
+            lineEl.textContent = 'Empty';
+        }
         playerLines.appendChild(lineEl);
     });
 }

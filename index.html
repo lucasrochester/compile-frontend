@@ -1,1 +1,50 @@
-<!DOCTYPE html>...</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compile: Online Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1>COMPILE</h1>
+            <div id="control-status">Control: Neutral</div>
+            <div id="turn-indicator">Your Turn</div>
+        </header>
+
+        <section id="opponent-field">
+            <h2>Opponent's Side</h2>
+            <div class="protocols" id="opponent-protocols"></div>
+            <div class="lines" id="opponent-lines"></div>
+            <div class="deck-trash">
+                <div class="deck">Deck</div>
+                <div class="trash">Trash</div>
+            </div>
+        </section>
+
+        <section id="player-field">
+            <h2>Your Side</h2>
+            <div class="protocols" id="player-protocols"></div>
+            <div class="lines" id="player-lines"></div>
+            <div id="player-hand">
+                <h3>Your Hand</h3>
+                <div id="hand-cards"></div>
+            </div>
+            <div class="deck-trash">
+                <div class="deck" id="player-deck">Deck</div>
+                <div class="trash" id="player-trash">Trash</div>
+            </div>
+        </section>
+
+        <section id="actions">
+            <button id="play-card">Play Card</button>
+            <button id="flip-card">Flip Card</button>
+            <button id="refresh-hand">Refresh Hand</button>
+            <button id="end-turn">End Turn</button>
+        </section>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
